@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+src/modules/ecobot.py
+src/modules/financial.py
+src/modules/identity.py
+src/modules/ml_engine.py
+src/modules/portfolio.py
+src/rt_ecosistema.egg-info/PKG-INFO
+src/rt_ecosistema.egg-info/SOURCES.txt
+src/rt_ecosistema.egg-info/dependency_links.txt
+src/rt_ecosistema.egg-info/requires.txt
+src/rt_ecosistema.egg-info/top_level.txt
