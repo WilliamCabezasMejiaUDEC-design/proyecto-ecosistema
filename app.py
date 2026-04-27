@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Agregamos la ruta actual al sistema para que encuentre la carpeta 'src'
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import streamlit as st
 import os
 import sys
