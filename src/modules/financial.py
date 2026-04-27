@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -46,7 +45,6 @@ def render_financiero(van, tir, roi, cb, insight_texto):
     
     # 3. Insights
     st.success(f"**Análisis:** {insight_texto}")
-=======
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -100,4 +98,3 @@ def render_financiero(van, tir, roi, cb, insight_texto):
             st.success("Precisión Validada (F1-Score): 0.91 [cite: 70]")
 
     st.warning(f"**Insight Estratégico:** {insight_texto}")
->>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee

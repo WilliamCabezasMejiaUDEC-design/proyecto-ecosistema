@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 
 def render_portfolio():
@@ -31,8 +30,6 @@ def render_portfolio():
                 st.write(f"{item['desc']}")
                 # Usamos metric para destacar el precio de forma profesional
                 st.metric(label="Inversión desde", value=item['precio'])
-=======
-import streamlit as st
 
 def render_portfolio():
     st.markdown("## 📦 Nuestro Portafolio (IA + Circularidad)")
@@ -48,4 +45,3 @@ def render_portfolio():
             st.subheader(f"{i+1}. {item['nombre']}")
             st.write(f"**Descripción:** {item['desc']}")
             st.write(f"**Precio:** {item['precio']}")
->>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee

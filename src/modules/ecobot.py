@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 from src.knowledge_engine import construir_prompt_maestro
 from google import genai
@@ -38,14 +37,12 @@ def render_ecobot():
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
             except Exception as e:
                 st.error(f"Error de sistema: No pude conectar con el Ecosistema. ({e})")
-=======
 # En src/modules/ecobot.py
 def render_ecobot():
     st.title("🤖 Ecobot Pro")
     st.warning("⚠️ Módulo en fase de entrenamiento final (Under Maintenance).")
     st.image("https://img.icons8.com/color/96/000000/maintenance.png")
     st.write("El asistente especializado estará activo tras la auditoría de seguridad.")
-
 
 import streamlit as st
 import os
@@ -80,8 +77,6 @@ def render_ecobot():
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
             except Exception as e:
                 st.error("Error en conexión. Verifica tu llave API.")
-
-
 
 # ... (imports previos)
 
@@ -140,4 +135,3 @@ def render_ecobot():
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
             except Exception as e:
                 st.error(f"Error en IA: {e}")
->>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 
 def render_identity():
@@ -51,8 +50,6 @@ def render_identity():
     * **Dignidad:** El reciclador es el centro del sistema.
     * **Eficacia:** Datos para la toma de decisiones.
     """)
-=======
-import streamlit as st
 
 def render_identity():
     st.markdown("# 🏢 Identidad Estratégica: 4R+T")
@@ -76,4 +73,3 @@ def render_identity():
     c1.metric("Transformación", "Pasión por convertir residuos. [cite: 242]")
     c2.metric("Transparencia", "Trazabilidad verificable 100%. [cite: 243]")
     c3.metric("Inclusión", "Dignificación del reciclador. [cite: 244]")
->>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee
