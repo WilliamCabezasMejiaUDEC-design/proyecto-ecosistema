@@ -2,34 +2,31 @@ import os
 import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from src.modules.data_analyzer import get_kpi_summary
 
-# --- CONFIGURACIÓN DE LOGS ---
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
-# --- IMPORTACIÓN SEGURA ---
-# Intentamos importar Streamlit solo para capturar el secreto si existe
+# --- BLINDAJE DE IMPORTACIÓN ---
+# Intentamos cargar streamlit, si no existe (al correr en terminal), st será None
 try:
     import streamlit as st
 except ImportError:
     st = None
 
-try:
-    from src.modules.data_analyzer import get_kpi_summary
-except ImportError:
-    # Fallback si no encuentra el módulo para evitar que el bot muera
-    def get_kpi_summary(): return "Error: Módulo de datos no disponible."
+# --- CONFIGURACIÓN DE LOGS ---
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-# --- LÓGICA DE CREDENCIALES (HÍBRIDA) ---
-def get_token():
+# --- FUNCIÓN SEGURA PARA EL TOKEN ---
+def get_safe_token():
+    # 1. Busca en variables de entorno (Lo que configuras en tu PC con 'set')
     token = os.getenv("TELEGRAM_TOKEN")
-    if not token and st and hasattr(st, "secrets"):
+    # 2. Si no lo encuentra y Streamlit está disponible, busca en secrets
+    if not token and st is not None:
         try:
-            token = st.secrets["TELEGRAM_TOKEN"]
+            token = st.secrets.get("TELEGRAM_TOKEN")
         except:
-            pass
+            token = None
     return token
 
-# --- COMANDOS DEL BOT ---
+# --- COMANDOS ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id, 
@@ -37,7 +34,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def resumen(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Enviar mensaje mientras se procesa
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Calculando indicadores...")
     mensaje = get_kpi_summary()
     await context.bot.send_message(chat_id=update.effective_chat.id, text=mensaje, parse_mode='Markdown')
@@ -45,11 +41,12 @@ async def resumen(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="🚀 Ecosistema 4R+T: **Online** y operativo.")
 
-# --- NÚCLEO DEL SERVICIO ---
+# --- NÚCLEO ---
 def run_telegram_service():
-    token = get_token()
+    token = get_safe_token()
+    
     if not token:
-        logging.error("Token de Telegram NO encontrado. Verifica tus variables de entorno o Secrets.")
+        logging.error("Token de Telegram NO encontrado. Configura la variable 'TELEGRAM_TOKEN' en tu terminal.")
         return
 
     application = ApplicationBuilder().token(token).build()
@@ -61,3 +58,6 @@ def run_telegram_service():
     
     logging.info("ECORADARCONSULTOR escuchando en Telegram...")
     application.run_polling()
+
+if __name__ == "__main__":
+    run_telegram_service()
