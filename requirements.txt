@@ -10,3 +10,4 @@ google-genai
 python-dotenv
 watchdog
 gtts
+python-telegram-bot
