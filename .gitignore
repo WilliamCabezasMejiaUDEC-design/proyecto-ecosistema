@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Archivos de entorno y claves
 .env
 __pycache__/
@@ -8,4 +9,9 @@ notebooks/
 pyproject.toml
 run_4RT.bat
 *.pkl
+=======
+.env
+__pycache__/
+__pycache__/
+>>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee
 *.pyc
