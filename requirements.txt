@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # CORE UI & FRAMEWORK
 streamlit==1.36.0
 
@@ -19,34 +18,4 @@ gtts
 
 # UTILS
 python-dotenv==1.0.1
-=======
-pandas
-scikit-learn
-numpy
-matplotlib
-seaborn
-plotly
-google-genai==0.1.0
-python-dotenv==1.0.1
-streamlit==1.36.0 # O tu versión actual
-gtts
-python-dotenv
-joblib
-# CORE UI & FRAMEWORK
-streamlit==1.36.0
-
-# IA & GENAI (Migración a SDK moderno)
-google-genai==0.1.0
-python-dotenv==1.0.1
-
-# DATA SCIENCE & MACHINE LEARNING (K-Means & Análisis)
-scikit-learn==1.4.0
-pandas==2.2.0
-numpy==1.26.0
-
-# VISUALIZACIÓN (Industrial KPIs)
-plotly==5.18.0
-
-# UTILS
->>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee
 watchdog==4.0.0
