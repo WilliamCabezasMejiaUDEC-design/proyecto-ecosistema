@@ -111,5 +111,4 @@ elif menu == "Portafolio":
 elif menu == "Financiero":
     render_financiero(van=2800000, tir=31, roi=145, cb=3.4, insight_texto="Viabilidad técnica y circular confirmada.")
 elif menu == "Ecobot":
-    render_ecobot()
->>>>>>> 57857bb4528bd1e37e671e9831ca7a515e7c66ee
+    render_ecobot() 57857bb4528bd1e37e671e9831ca7a515e7c66ee
