@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Clasificación de Residuos — 4R+T · Remasté</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== PRINT & SCREEN ===== */
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white !important; color: #000 !important; }
+    .portada { min-height: auto; page-break-after: always; }
+    .seccion { page-break-inside: avoid; }
+    .categoria-card { page-break-inside: avoid; }
+  }
+
+  :root {
+    --negro: #050505;
+    --dorado: #FFD700;
+    --dorado-claro: #FFF5C0;
+    --dorado-oscuro: #C8A800;
+    --verde: #1a5c3a;
+    --verde-lima: #5aaa4a;
+    --verde-claro: #e8f5e2;
+    --gris-oscuro: #111111;
+    --gris-panel: #1a1a1a;
+    --gris-borde: #2a2a2a;
+    --blanco: #ffffff;
+    --crema: #fdfcf8;
+    --texto: #1a1a1a;
+    --texto-suave: #4a4a4a;
+
+    /* Categorías */
+    --col-organico: #2d6a1f;
+    --col-organico-bg: #f0fced;
+    --col-organico-borde: #5aaa4a;
+    --col-plastico: #b85c00;
+    --col-plastico-bg: #fff8f0;
+    --col-plastico-borde: #e07030;
+    --col-papel: #1a5c8a;
+    --col-papel-bg: #f0f8ff;
+    --col-papel-borde: #3a9ad9;
+    --col-vidrio: #1a6e7a;
+    --col-vidrio-bg: #f0fcff;
+    --col-vidrio-borde: #2ab8cc;
+    --col-metal: #5a5a5a;
+    --col-metal-bg: #f8f8f8;
+    --col-metal-borde: #888888;
+    --col-peligroso: #8b0000;
+    --col-peligroso-bg: #fff0f0;
+    --col-peligroso-borde: #dc3545;
+    --col-especial: #5a1a8a;
+    --col-especial-bg: #f8f0ff;
+    --col-especial-borde: #9b59b6;
+    --col-noaprov: #4a3000;
+    --col-noaprov-bg: #faf5e4;
+    --col-noaprov-borde: #c8952a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  /* ===== PORTADA ===== */
+  .portada {
+    background: var(--negro);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .portada::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 60%, rgba(255,215,0,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 85% 25%, rgba(26,92,58,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .port-top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: flex-start; }
+  .port-logo { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--dorado); letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
+  .port-ref { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.2); text-align: right; line-height: 1.8; }
+
+  .port-centro { position: relative; z-index: 1; }
+
+  .port-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid rgba(255,215,0,0.35); padding: 8px 20px;
+    border-radius: 2px; margin-bottom: 32px;
+  }
+  .port-tag .dot { width: 8px; height: 8px; background: var(--dorado); border-radius: 50%; animation: blink 2s infinite; }
+  .port-tag span { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--dorado); letter-spacing: 2px; text-transform: uppercase; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .port-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--blanco);
+    margin-bottom: 12px;
+  }
+  .port-titulo .oro { color: var(--dorado); }
+
+  .port-subtitulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 48px;
+  }
+
+  .port-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--gris-borde);
+    max-width: 900px;
+    border: 1px solid var(--gris-borde);
+  }
+  .port-meta-item { background: var(--gris-oscuro); padding: 16px 20px; }
+  .port-meta-item .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dorado); opacity: 0.5; margin-bottom: 5px; }
+  .port-meta-item .val { font-size: 0.82rem; color: rgba(255,255,255,0.8); font-weight: 500; line-height: 1.3; }
+
+  .port-bottom {
+    position: relative; z-index: 1;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-top: 40px; border-top: 1px solid var(--gris-borde);
+  }
+  .port-bottom-txt { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+
+  /* ===== ÍNDICE ===== */
+  .indice {
+    background: var(--gris-oscuro);
+    padding: 60px;
+    border-bottom: 4px solid var(--dorado);
+  }
+  .indice h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--blanco); margin-bottom: 36px; }
+  .indice h2 span { color: var(--dorado); }
+  .indice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .indice-item { background: #111; padding: 14px 20px; display: flex; align-items: center; gap: 14px; border-left: 2px solid transparent; cursor: pointer; transition: border-color 0.2s; }
+  .indice-item:hover { border-left-color: var(--dorado); }
+  .indice-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--dorado); opacity: 0.5; width: 28px; flex-shrink: 0; }
+  .indice-titulo { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+  .indice-pts { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--dorado); background: rgba(255,215,0,0.1); padding: 2px 10px; border-radius: 2px; white-space: nowrap; }
+
+  /* ===== SECCIONES ===== */
+  .seccion { padding: 64px 60px; border-bottom: 1px solid #e0ddd8; }
+  .seccion:nth-child(even) { background: var(--blanco); }
+  .seccion:nth-child(odd) { background: var(--crema); }
+
+  .sec-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--dorado); }
+  .sec-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--dorado-oscuro); padding-top: 8px; white-space: nowrap; letter-spacing: 1px; }
+  .sec-titulo h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: var(--negro); line-height: 1.2; margin-bottom: 4px; }
+  .sec-titulo h2 span { color: var(--dorado-oscuro); }
+  .sec-bajada { font-size: 0.9rem; color: var(--texto-suave); max-width: 700px; }
+
+  /* ===== TEXTO ===== */
+  .p { font-size: 1rem; line-height: 1.85; color: var(--texto); margin-bottom: 16px; max-width: 880px; text-align: justify; }
+  .p strong { color: var(--negro); font-weight: 600; }
+  .p em { color: var(--verde); font-style: italic; }
+
+  /* ===== CALLOUT ===== */
+  .callout { background: var(--negro); border-left: 4px solid var(--dorado); padding: 24px 30px; margin: 24px 0; }
+  .callout p { font-family: 'Playfair Display', serif; font-size: 1.08rem; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.8; }
+  .callout p strong { color: var(--dorado); font-style: normal; }
+  .callout.verde { border-left-color: var(--verde-lima); background: var(--verde-claro); }
+  .callout.verde p { color: var(--verde); }
+  .callout.verde p strong { color: var(--verde); }
+  .callout.alerta { border-left-color: #dc3545; background: #fff5f5; }
+  .callout.alerta p { color: #8b0000; }
+
+  /* ===== CATEGORÍAS DE RESIDUOS ===== */
+  .categoria-card {
+    border-radius: 12px;
+    border: 2px solid;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .cat-header {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cat-ico { font-size: 2.5rem; flex-shrink: 0; }
+  .cat-info { flex: 1; }
+  .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 2px; }
+  .cat-info .cat-sub { font-size: 0.88rem; font-weight: 500; opacity: 0.75; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; }
+  .cat-bolsa { text-align: right; }
+  .cat-bolsa .bolsa-label { font-size: 0.7rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
+  .cat-bolsa .bolsa-nombre { font-size: 1.1rem; font-weight: 700; font-family: 'Playfair Display', serif; }
+
+  .cat-body { padding: 24px 28px; }
+
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .cat-col h4 { font-size: 0.78rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; opacity: 0.7; }
+  .cat-col ul { list-style: none; padding: 0; }
+  .cat-col ul li { font-size: 0.88rem; color: var(--texto); padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,0.05); line-height: 1.5; }
+  .cat-col ul li::before { content: '→ '; font-size: 0.75rem; opacity: 0.5; }
+
+  .cat-datos { margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .dato-item { background: rgba(0,0,0,0.04); border-radius: 6px; padding: 12px 14px; text-align: center; }
+  .dato-item .d-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .dato-item .d-lbl { font-size: 0.72rem; font-family: 'IBM Plex Mono', monospace; opacity: 0.6; line-height: 1.4; }
+
+  /* COLORES POR CATEGORÍA */
+  .cat-organico { border-color: var(--col-organico-borde); }
+  .cat-organico .cat-header { background: var(--col-organico-bg); color: var(--col-organico); }
+  .cat-organico .cat-body { background: #fafff9; }
+  .cat-organico .dato-item .d-num { color: var(--col-organico); }
+
+  .cat-plastico { border-color: var(--col-plastico-borde); }
+  .cat-plastico .cat-header { background: var(--col-plastico-bg); color: var(--col-plastico); }
+  .cat-plastico .cat-body { background: #fffcf9; }
+  .cat-plastico .dato-item .d-num { color: var(--col-plastico); }
+
+  .cat-papel { border-color: var(--col-papel-borde); }
+  .cat-papel .cat-header { background: var(--col-papel-bg); color: var(--col-papel); }
+  .cat-papel .cat-body { background: #f9fcff; }
+  .cat-papel .dato-item .d-num { color: var(--col-papel); }
+
+  .cat-vidrio { border-color: var(--col-vidrio-borde); }
+  .cat-vidrio .cat-header { background: var(--col-vidrio-bg); color: var(--col-vidrio); }
+  .cat-vidrio .cat-body { background: #f9feff; }
+  .cat-vidrio .dato-item .d-num { color: var(--col-vidrio); }
+
+  .cat-metal { border-color: var(--col-metal-borde); }
+  .cat-metal .cat-header { background: var(--col-metal-bg); color: var(--col-metal); }
+  .cat-metal .cat-body { background: #fdfdfd; }
+  .cat-metal .dato-item .d-num { color: var(--col-metal); }
+
+  .cat-peligroso { border-color: var(--col-peligroso-borde); }
+  .cat-peligroso .cat-header { background: var(--col-peligroso-bg); color: var(--col-peligroso); }
+  .cat-peligroso .cat-body { background: #fff9f9; }
+  .cat-peligroso .dato-item .d-num { color: var(--col-peligroso); }
+
+  .cat-especial { border-color: var(--col-especial-borde); }
+  .cat-especial .cat-header { background: var(--col-especial-bg); color: var(--col-especial); }
+  .cat-especial .cat-body { background: #fdf9ff; }
+  .cat-especial .dato-item .d-num { color: var(--col-especial); }
+
+  .cat-noaprov { border-color: var(--col-noaprov-borde); }
+  .cat-noaprov .cat-header { background: var(--col-noaprov-bg); color: var(--col-noaprov); }
+  .cat-noaprov .cat-body { background: #fdfaf0; }
+  .cat-noaprov .dato-item .d-num { color: var(--col-noaprov); }
+
+  /* ===== TABLA RESUMEN ===== */
+  .tabla-resumen { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.9rem; }
+  .tabla-resumen thead tr { background: var(--negro); }
+  .tabla-resumen thead th { padding: 14px 16px; text-align: left; color: var(--dorado); font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+  .tabla-resumen tbody tr { border-bottom: 1px solid #e5e5e5; }
+  .tabla-resumen tbody tr:hover { background: rgba(0,0,0,0.02); }
+  .tabla-resumen tbody td { padding: 13px 16px; color: var(--texto); vertical-align: middle; line-height: 1.5; }
+  .tabla-resumen tbody td:first-child { font-weight: 600; }
+  .bolsa-badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ===== PROCESO DE SEPARACIÓN ===== */
+  .paso-lista { margin: 24px 0; }
+  .paso { display: flex; gap: 20px; margin-bottom: 1px; position: relative; }
+  .paso::after { content: ''; position: absolute; left: 19px; top: 42px; bottom: -1px; width: 1px; background: #d5d5d5; }
+  .paso:last-child::after { display: none; }
+  .paso-num { width: 40px; height: 40px; border: 2px solid var(--dorado-oscuro); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--dorado-oscuro); font-weight: 700; flex-shrink: 0; background: var(--crema); position: relative; z-index: 1; }
+  .paso-cuerpo { padding: 8px 0 32px; flex: 1; }
+  .paso-cuerpo .etq { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--dorado-oscuro); opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .paso-cuerpo h4 { font-size: 1rem; font-weight: 600; color: var(--negro); margin-bottom: 6px; }
+  .paso-cuerpo p { font-size: 0.88rem; color: var(--texto-suave); line-height: 1.65; }
+
+  /* ===== GRIDS ===== */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 20px 0; }
+  .card { background: var(--blanco); border: 1px solid #e0ddd8; border-radius: 8px; padding: 20px 22px; }
+  .card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--negro); margin-bottom: 10px; }
+  .card p { font-size: 0.88rem; color: var(--texto-suave); line-height: 1.65; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { font-size: 0.85rem; color: var(--texto); padding: 3px 0; }
+  .card ul li::before { content: '↗ '; color: var(--dorado-oscuro); font-size: 0.75rem; }
+  .card.borde-dorado { border-left: 4px solid var(--dorado); }
+  .card.borde-verde { border-left: 4px solid var(--verde-lima); }
+  .card.borde-rojo { border-left: 4px solid #dc3545; }
+
+  /* ===== SEPARADORES ===== */
+  .sep { display: flex; align-items: center; gap: 16px; margin: 40px 0; }
+  .sep .l { flex: 1; height: 1px; background: #d5d5d5; }
+  .sep .r { color: var(--dorado-oscuro); opacity: 0.4; font-size: 0.85rem; }
+
+  /* ===== FOOTER ===== */
+  .footer { background: var(--negro); padding: 40px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--dorado); }
+  .footer-info { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.15); text-align: right; line-height: 1.9; }
+
+  /* ===== TABLA DE PREGUNTAS FAQ ===== */
+  .faq-item { border-bottom: 1px solid #e5e5e5; padding: 16px 0; }
+  .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--negro); margin-bottom: 6px; }
+  .faq-q::before { content: 'P: '; color: var(--dorado-oscuro); }
+  .faq-a { font-size: 0.9rem; color: var(--texto-suave); line-height: 1.7; padding-left: 20px; border-left: 2px solid var(--dorado); margin-left: 16px; }
+
+  /* ===== NORMATIVA ===== */
+  .norma-item { background: var(--blanco); border: 1px solid #e0ddd8; border-radius: 6px; padding: 16px 20px; margin-bottom: 10px; display: flex; gap: 16px; align-items: flex-start; }
+  .norma-item .norma-cod { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--dorado-oscuro); font-weight: 600; white-space: nowrap; padding-top: 2px; }
+  .norma-item .norma-desc { font-size: 0.9rem; color: var(--texto); line-height: 1.6; }
+  .norma-item .norma-desc strong { color: var(--negro); font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .portada, .indice, .seccion, .footer { padding: 40px 24px; }
+    .port-meta-grid, .indice-grid, .grid-2, .grid-3, .cat-grid, .cat-datos { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======= PORTADA ======= -->
+<div class="portada">
+  <div class="port-top">
+    <div class="port-logo">Remasté · 4R+T Labs · 2026</div>
+    <div class="port-ref">
+      Documento Técnico Oficial<br>
+      PGIRS Fusagasugá · Acuerdo 022/2022<br>
+      Región del Sumapaz · Colombia
+    </div>
+  </div>
+
+  <div class="port-centro">
+    <div class="port-tag"><div class="dot"></div><span>Manual Técnico · Edición 1.0</span></div>
+    <h1 class="port-titulo">Manual de<br>Clasificación<br>de <span class="oro">Residuos</span></h1>
+    <p class="port-subtitulo">Guía técnica oficial del Ecosistema 4R+T · Guardianes del Primer Paso</p>
+    <div class="port-meta-grid">
+      <div class="port-meta-item"><div class="lbl">Proyecto</div><div class="val">Remasté · 4R+T</div></div>
+      <div class="port-meta-item"><div class="lbl">Fuente Científica</div><div class="val">PGIRS Fusagasugá 2022</div></div>
+      <div class="port-meta-item"><div class="lbl">Categorías</div><div class="val">8 tipos de residuos</div></div>
+      <div class="port-meta-item"><div class="lbl">Región</div><div class="val">Sumapaz · 10 municipios</div></div>
+      <div class="port-meta-item"><div class="lbl">Versión</div><div class="val">1.0 · Abril 2026</div></div>
+    </div>
+  </div>
+
+  <div class="port-bottom">
+    <div class="port-bottom-txt">CLASIFICACIÓN: DOCUMENTO TÉCNICO PÚBLICO · USO EDUCATIVO Y OPERATIVO</div>
+    <div class="port-bottom-txt">INGEOAM SOLUCIONES SAS · Ley 1581/2012 · ISO 27001</div>
+  </div>
+</div>
+
+<!-- ======= ÍNDICE ======= -->
+<div class="indice">
+  <h2>Tabla de <span>Contenido</span></h2>
+  <div class="indice-grid">
+    <div class="indice-item"><div class="indice-num">01</div><div class="indice-titulo">Marco Técnico y Base Científica</div></div>
+    <div class="indice-item"><div class="indice-num">02</div><div class="indice-titulo">Sistema de Clasificación 4R+T</div></div>
+    <div class="indice-item"><div class="indice-num">03</div><div class="indice-titulo">Residuos Orgánicos Compostables</div><div class="indice-pts">62.3%</div></div>
+    <div class="indice-item"><div class="indice-num">04</div><div class="indice-titulo">Plásticos y PET</div><div class="indice-pts">12.5%</div></div>
+    <div class="indice-item"><div class="indice-num">05</div><div class="indice-titulo">Papel, Cartón y Archivo</div><div class="indice-pts">8.2%</div></div>
+    <div class="indice-item"><div class="indice-num">06</div><div class="indice-titulo">Vidrio y Cristal</div><div class="indice-pts">3.8%</div></div>
+    <div class="indice-item"><div class="indice-num">07</div><div class="indice-titulo">Metales y Chatarra</div><div class="indice-pts">2.8%</div></div>
+    <div class="indice-item"><div class="indice-num">08</div><div class="indice-titulo">Residuos Peligrosos (RESPEL)</div></div>
+    <div class="indice-item"><div class="indice-num">09</div><div class="indice-titulo">Residuos Especiales y RAEE</div></div>
+    <div class="indice-item"><div class="indice-num">10</div><div class="indice-titulo">No Aprovechables — Disposición Final</div><div class="indice-pts">17.0%</div></div>
+    <div class="indice-item"><div class="indice-num">11</div><div class="indice-titulo">Proceso de Separación en la Fuente</div></div>
+    <div class="indice-item"><div class="indice-num">12</div><div class="indice-titulo">Tabla Resumen de Clasificación</div></div>
+    <div class="indice-item"><div class="indice-num">13</div><div class="indice-titulo">FAQ — 50 Preguntas del EcoBot 4R+T</div></div>
+    <div class="indice-item"><div class="indice-num">14</div><div class="indice-titulo">Marco Normativo y Legal</div></div>
+  </div>
+</div>
+
+<!-- ======= SEC 01: MARCO TÉCNICO ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">01 ·</div>
+    <div class="sec-titulo">
+      <h2>Marco Técnico y <span>Base Científica</span></h2>
+      <p class="sec-bajada">Fundamentos del sistema de clasificación basado en el PGIRS de Fusagasugá 2022</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>"El residuo no es basura: es el salario del Guardián."</strong> Cada tonelada de material correctamente clasificado y aprovechado por los Guardianes del Primer Paso financia una beca técnica profesional. La precisión en la separación en la fuente es el primer eslabón de esta cadena de valor circular.</p>
+  </div>
+
+  <p class="p">El presente Manual de Clasificación de Residuos constituye la guía técnica oficial del Ecosistema Digital <strong>4R+T de Remasté</strong>, construida sobre la evidencia científica del <strong>Plan de Gestión Integral de Residuos Sólidos (PGIRS) de Fusagasugá</strong>, adoptado mediante Acuerdo Municipal 022 de 2022. Este documento de 514 páginas establece la composición real de los residuos sólidos urbanos del municipio y las proyecciones de generación hasta 2030, constituyendo la única fuente de verdad oficial para la implementación del modelo 4R+T en los 10 municipios de la región del Sumapaz.</p>
+
+  <p class="p">La clasificación de residuos sólidos urbanos en Fusagasugá parte de los datos históricos reales de Emserfusa consignados en la <strong>Tabla 18 del PGIRS</strong>, que registra una generación promedio de <strong>2.412 toneladas mensuales</strong> durante el período 2019-2020, con una tasa de aprovechamiento actual del <strong>8.38%</strong>. La meta del modelo 4R+T es llevar esta tasa al <strong>90% para 2030</strong>, lo que representaría la recuperación de más de 2.500 toneladas adicionales por mes de materiales con valor económico real.</p>
+
+  <div class="grid-3">
+    <div class="card borde-dorado">
+      <h4>📊 Dato Base PGIRS</h4>
+      <p>Generación mensual promedio real 2019-2020 según Tabla 18: <strong>2.412 ton/mes</strong>. Proyección 2030 (Tabla 130): <strong>2.870 ton/mes</strong>. Tasa de aprovechamiento actual: <strong>8.38%</strong>.</p>
+    </div>
+    <div class="card borde-verde">
+      <h4>🌱 Factor CO2 (PGIRS)</h4>
+      <p>Factor de mitigación para orgánicos desviados del relleno sanitario: <strong>4.234 kg CO2eq/año por tonelada</strong>. Modelo de referencia: <em>Nakhon Si Thammarat</em>, citado en el PGIRS Fusagasugá 2022.</p>
+    </div>
+    <div class="card borde-rojo">
+      <h4>⚠️ Relleno Mondoñedo</h4>
+      <p>El <strong>91.62%</strong> de los residuos generados en Fusagasugá termina en el relleno sanitario de Mondoñedo sin ningún proceso de valorización. Costo ambiental: pérdida irreversible de materiales con valor de mercado.</p>
+    </div>
+  </div>
+
+  <div class="sep"><div class="l"></div><div class="r">◆</div><div class="l"></div></div>
+
+  <p class="p">El sistema de clasificación 4R+T adopta el enfoque de <strong>Economía Circular</strong> establecido en la Política Nacional de Economía Circular (CONPES 3874) y el Decreto 2981 de 2013, organizando los residuos en ocho categorías principales según su potencial de valorización, su método de gestión y su normativa aplicable. Este enfoque es coherente con los principios de las <strong>4R (Reducir, Reutilizar, Reusar, Reciclar)</strong> que fundamentan el modelo operativo de Remasté, más la <strong>T de Transformación y Trazabilidad tecnológica</strong>.</p>
+</div>
+
+<!-- ======= SEC 02: SISTEMA ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">02 ·</div>
+    <div class="sec-titulo">
+      <h2>Sistema de <span>Clasificación 4R+T</span></h2>
+      <p class="sec-bajada">Ocho categorías de residuos con criterios técnicos de aprovechabilidad y destino</p>
+    </div>
+  </div>
+
+  <p class="p">El sistema 4R+T clasifica los residuos sólidos urbanos en <strong>ocho categorías principales</strong>, basadas en la composición real establecida en el PGIRS de Fusagasugá 2022. Cada categoría tiene asignada una <strong>bolsa o contenedor identificador</strong>, un destino de aprovechamiento definido y una cadena de valor específica dentro del ecosistema Remasté.</p>
+
+  <div class="callout verde">
+    <p><strong>Principio fundamental:</strong> Un residuo clasificado correctamente en la fuente vale entre 3 y 15 veces más que uno mezclado. La contaminación cruzada (mezcla de categorías) es la principal causa de pérdida de valor en la cadena de aprovechamiento y el mayor obstáculo para la formalización económica de los Guardianes del Primer Paso.</p>
+  </div>
+
+  <table class="tabla-resumen">
+    <thead>
+      <tr>
+        <th>Categoría</th>
+        <th>% Masa Total</th>
+        <th>Contenedor</th>
+        <th>Destino 4R+T</th>
+        <th>Valor Aprox.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🟢 Orgánicos Compostables</td>
+        <td>62.3%</td>
+        <td><span class="bolsa-badge" style="background:#e8f5e2;color:#2d6a1f;">BOLSA VERDE</span></td>
+        <td>Bioinsumos agrícolas · Compostaje</td>
+        <td>$25K–$80K COP/ton</td>
+      </tr>
+      <tr>
+        <td>🟡 Plásticos y PET</td>
+        <td>12.5%</td>
+        <td><span class="bolsa-badge" style="background:#fff8f0;color:#b85c00;">BOLSA AMARILLA</span></td>
+        <td>Materia prima secundaria industrial</td>
+        <td>$800K COP/ton PET</td>
+      </tr>
+      <tr>
+        <td>🔵 Papel y Cartón</td>
+        <td>8.2%</td>
+        <td><span class="bolsa-badge" style="background:#f0f8ff;color:#1a5c8a;">BOLSA AZUL</span></td>
+        <td>Reciclaje industrial · Pulpa</td>
+        <td>$180K COP/ton</td>
+      </tr>
+      <tr>
+        <td>🩵 Vidrio y Cristal</td>
+        <td>3.8%</td>
+        <td><span class="bolsa-badge" style="background:#f0fcff;color:#1a6e7a;">RECIPIENTE TRANSPARENTE</span></td>
+        <td>Reciclaje directo · Reutilización</td>
+        <td>$50K COP/ton</td>
+      </tr>
+      <tr>
+        <td>⚙️ Metales y Chatarra</td>
+        <td>2.8%</td>
+        <td><span class="bolsa-badge" style="background:#f8f8f8;color:#5a5a5a;">BOLSA GRIS</span></td>
+        <td>Fundición · Chatarrerías certificadas</td>
+        <td>$1.2M–$3.5M COP/ton</td>
+      </tr>
+      <tr>
+        <td>🔴 Residuos Peligrosos</td>
+        <td>~1.5%</td>
+        <td><span class="bolsa-badge" style="background:#fff0f0;color:#8b0000;">RECIPIENTE ROJO</span></td>
+        <td>Gestores autorizados MAVDT</td>
+        <td>N/A (costo de gestión)</td>
+      </tr>
+      <tr>
+        <td>🟣 RAEE / Especiales</td>
+        <td>~0.9%</td>
+        <td><span class="bolsa-badge" style="background:#f8f0ff;color:#5a1a8a;">PUNTO MORADO</span></td>
+        <td>Programas posconsumo · REP</td>
+        <td>Variable por material</td>
+      </tr>
+      <tr>
+        <td>⚫ No Aprovechables</td>
+        <td>17.0%</td>
+        <td><span class="bolsa-badge" style="background:#faf5e4;color:#4a3000;">BOLSA NEGRA</span></td>
+        <td>Relleno sanitario Mondoñedo</td>
+        <td>Costo de disposición</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ======= SEC 03: ORGÁNICOS ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">03 ·</div>
+    <div class="sec-titulo">
+      <h2>Residuos <span>Orgánicos Compostables</span></h2>
+      <p class="sec-bajada">Bolsa Verde · 62.3% de la masa total · Mayor generador de GEI si va al relleno</p>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-organico">
+    <div class="cat-header">
+      <div class="cat-ico">🟢</div>
+      <div class="cat-info">
+        <h3>Orgánicos Compostables</h3>
+        <div class="cat-sub">FRACCIÓN HÚMEDA · Máxima prioridad de desvío del relleno sanitario</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#2d6a1f;">BOLSA VERDE</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>✅ SÍ va en la bolsa verde</h4>
+          <ul>
+            <li>Restos de comida cocinada y cruda</li>
+            <li>Cáscaras de frutas y verduras</li>
+            <li>Semillas y huesos de frutas</li>
+            <li>Panes, harinas y cereales en mal estado</li>
+            <li>Restos de café, té e infusiones</li>
+            <li>Poda de jardín: hojas, flores, ramas pequeñas</li>
+            <li>Estiércol y desechos de animales domésticos</li>
+            <li>Servilletas y papel absorbente húmedo</li>
+            <li>Cáscaras de huevo</li>
+            <li>Residuos de lácteos en pequeñas cantidades</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>❌ NO va en la bolsa verde</h4>
+          <ul>
+            <li>Carnes, pescados y mariscos (van en bolsa negra)</li>
+            <li>Aceites y grasas de cocina</li>
+            <li>Residuos de jardín tratados con pesticidas</li>
+            <li>Cenizas de carbón o madera tratada</li>
+            <li>Plásticos o envases aunque estén sucios</li>
+            <li>Pañales y productos de higiene</li>
+            <li>Medicamentos vencidos</li>
+            <li>Tierra y escombros</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>♻️ Destino en 4R+T</h4>
+          <ul>
+            <li>Compostaje aeróbico y lombricompostaje</li>
+            <li>Bioinsumos para cooperativas agrícolas del Sumapaz</li>
+            <li>Biogás mediante digestión anaeróbica</li>
+            <li>Alimentación animal certificada</li>
+            <li>Mejoramiento de suelos degradados</li>
+            <li>Bioestimulantes para reforestación</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#2d6a1f;">62.3%</div>
+          <div class="d-lbl">de la masa total<br>(Tabla 18 PGIRS)</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#2d6a1f;">4.234</div>
+          <div class="d-lbl">kg CO2eq mitigado<br>por ton desviada</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#2d6a1f;">1.503</div>
+          <div class="d-lbl">ton/mes potencial<br>en Fusagasugá</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#2d6a1f;">$25K</div>
+          <div class="d-lbl">COP/ton<br>como bioinsumo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout alerta">
+    <p><strong>⚠️ Impacto crítico si va al relleno:</strong> Los residuos orgánicos en condición anaeróbica (sin oxígeno) producen metano (CH4), un gas 28 veces más potente que el CO2 como gas de efecto invernadero. Por eso son la fracción más prioritaria para desviar del relleno sanitario de Mondoñedo según el PGIRS 2022.</p>
+  </div>
+</div>
+
+<!-- ======= SEC 04: PLÁSTICOS ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">04 ·</div>
+    <div class="sec-titulo">
+      <h2>Plásticos y <span>PET</span></h2>
+      <p class="sec-bajada">Bolsa Amarilla · 12.5% de la masa total · Mayor valor comercial por kilogramo</p>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-plastico">
+    <div class="cat-header">
+      <div class="cat-ico">🟡</div>
+      <div class="cat-info">
+        <h3>Plásticos y PET</h3>
+        <div class="cat-sub">FRACCIÓN SECA · Identificación por código de resina (1-7)</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#b85c00;">BOLSA AMARILLA</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>✅ SÍ va en la bolsa amarilla</h4>
+          <ul>
+            <li><strong>PET (1):</strong> botellas de agua, gaseosa, jugos</li>
+            <li><strong>PEAD (2):</strong> envases de shampoo, detergente, leche</li>
+            <li><strong>PVC (3):</strong> tuberías, perfiles (limpios)</li>
+            <li><strong>PEBD (4):</strong> bolsas plásticas limpias, film</li>
+            <li><strong>PP (5):</strong> tapas, vasos, envases de yogurt</li>
+            <li><strong>PS (6):</strong> cubiertos plásticos, bandejas</li>
+            <li>Envases plásticos enjuagados y secos</li>
+            <li>Pitillos y sorbetes plásticos</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>❌ NO va en la bolsa amarilla</h4>
+          <ul>
+            <li>Plásticos sucios o con restos de comida (lavar primero)</li>
+            <li>Plásticos quemados o fundidos</li>
+            <li>Hules y cauchos (van en bolsa negra)</li>
+            <li>Tecnopor/icopor (va en bolsa negra)</li>
+            <li>Plásticos mezclados e irreconocibles</li>
+            <li>Envases con residuos peligrosos (RESPEL)</li>
+            <li>Juguetes plásticos complejos</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>♻️ Destino en 4R+T</h4>
+          <ul>
+            <li>Peletizado y extrusión para reindustrialización</li>
+            <li>Materia prima secundaria certificada</li>
+            <li>Fabricación de empaques reciclados</li>
+            <li>Ecodiseño: productos de lujo (Electric Gold)</li>
+            <li>Perfiles y tableros plásticos</li>
+            <li>Textiles reciclados (rPET)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#b85c00;">12.5%</div>
+          <div class="d-lbl">de la masa total<br>(Tabla 18 PGIRS)</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#b85c00;">$800K</div>
+          <div class="d-lbl">COP/ton PET<br>precio mercado</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#b85c00;">301</div>
+          <div class="d-lbl">ton/mes potencial<br>en Fusagasugá</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#b85c00;">↑20%</div>
+          <div class="d-lbl">meta 4R+T<br>captura de masa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout verde">
+    <p><strong>💡 Consejo técnico — El enjuague es clave:</strong> Un envase PET con restos de alimento contamina hasta 10 kg de plástico limpio en el proceso de peletizado. Siempre enjuagar con agua fría (no caliente para no deformar), quitar la tapa y aplanar para reducir volumen.</p>
+  </div>
+</div>
+
+<!-- ======= SEC 05: PAPEL ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">05 ·</div>
+    <div class="sec-titulo">
+      <h2>Papel, Cartón <span>y Archivo</span></h2>
+      <p class="sec-bajada">Bolsa Azul · 8.2% de la masa total · Ciclo cerrado de gestión documental</p>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-papel">
+    <div class="cat-header">
+      <div class="cat-ico">🔵</div>
+      <div class="cat-info">
+        <h3>Papel, Cartón y Archivo</h3>
+        <div class="cat-sub">FRACCIÓN SECA · Sensible a la humedad — mantener seco siempre</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#1a5c8a;">BOLSA AZUL</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>✅ SÍ va en la bolsa azul</h4>
+          <ul>
+            <li>Cartón corrugado (cajas) — aplanar</li>
+            <li>Papel periódico y revistas</li>
+            <li>Papel de oficina, cuadernos, libros</li>
+            <li>Cajas de cereal, medicamentos, zapatos</li>
+            <li>Papel kraft, bolsas de papel</li>
+            <li>Envases de cartón para huevos (secos)</li>
+            <li>Archivo muerto sin datos confidenciales</li>
+            <li>Papel encerado limpio (en algunos municipios)</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>❌ NO va en la bolsa azul</h4>
+          <ul>
+            <li>Papel mojado o con grasa (pizza, comida)</li>
+            <li>Papel tissue / higiénico / toallas de cocina usadas</li>
+            <li>Papel encerado o metalizado (tetrapack)</li>
+            <li>Papel carbón y papel térmico</li>
+            <li>Papel con residuos peligrosos</li>
+            <li>Pañales y productos sanitarios</li>
+            <li>Cartón con laminado plástico o aluminio</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>♻️ Destino en 4R+T</h4>
+          <ul>
+            <li>Pulpa para fabricación de papel reciclado</li>
+            <li>Cartón corrugado para empaques secundarios</li>
+            <li>Material aislante y de relleno</li>
+            <li>Compostaje (papel sin tintas)</li>
+            <li>Gestión de archivo con protección de datos</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a5c8a;">8.2%</div>
+          <div class="d-lbl">de la masa total<br>(Tabla 18 PGIRS)</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a5c8a;">$180K</div>
+          <div class="d-lbl">COP/ton cartón<br>precio mercado</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a5c8a;">198</div>
+          <div class="d-lbl">ton/mes potencial<br>en Fusagasugá</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a5c8a;">17</div>
+          <div class="d-lbl">árboles salvados<br>por ton reciclada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 06: VIDRIO ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">06 ·</div>
+    <div class="sec-titulo">
+      <h2>Vidrio <span>y Cristal</span></h2>
+      <p class="sec-bajada">Recipiente Transparente · 3.8% de la masa total · 100% reciclable infinitamente</div>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-vidrio">
+    <div class="cat-header">
+      <div class="cat-ico">🩵</div>
+      <div class="cat-info">
+        <h3>Vidrio y Cristal</h3>
+        <div class="cat-sub">FRACCIÓN INERTE · Nunca romper — el vidrio entero tiene mayor valor</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#1a6e7a;">RECIPIENTE TRANSPARENTE</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>✅ SÍ va en recipiente transparente</h4>
+          <ul>
+            <li>Botellas de vidrio (bebidas, salsas, aceites)</li>
+            <li>Frascos de mermelada, conservas, cosméticos</li>
+            <li>Botellas de vino y licores</li>
+            <li>Tarros y recipientes de vidrio</li>
+            <li>Vidrio de colores (verde, café, blanco por separado)</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>❌ NO va en recipiente de vidrio</h4>
+          <ul>
+            <li>Espejos y cristales de ventana</li>
+            <li>Vidrio de automóvil (templado)</li>
+            <li>Bombillas y focos (van en RAEE)</li>
+            <li>Porcelana, cerámica y loza</li>
+            <li>Vidrio con plomo (pantallas CRT antiguas)</li>
+            <li>Vidrio roto mezclado (riesgo de accidente)</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>♻️ Destino en 4R+T</h4>
+          <ul>
+            <li>Reciclaje directo en plantas vidriotas</li>
+            <li>Fabricación de nuevo vidrio (100% reciclable)</li>
+            <li>Uso como materia prima inerte en construcción</li>
+            <li>Reutilización directa de envases retornables</li>
+            <li>Arte y artesanías (vidrio de colores)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a6e7a;">3.8%</div>
+          <div class="d-lbl">de la masa total<br>(PGIRS Fusagasugá)</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a6e7a;">$50K</div>
+          <div class="d-lbl">COP/ton<br>precio mercado</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a6e7a;">100%</div>
+          <div class="d-lbl">reciclable sin<br>pérdida de calidad</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#1a6e7a;">∞</div>
+          <div class="d-lbl">veces reutilizable<br>sin degradación</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 07: METALES ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">07 ·</div>
+    <div class="sec-titulo">
+      <h2>Metales <span>y Chatarra</span></h2>
+      <p class="sec-bajada">Bolsa Gris · 2.8% de la masa total · Mayor precio por kilogramo de todos los materiales</p>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-metal">
+    <div class="cat-header">
+      <div class="cat-ico">⚙️</div>
+      <div class="cat-info">
+        <h3>Metales y Chatarra</h3>
+        <div class="cat-sub">FRACCIÓN SECA · Alta densidad · Prioridad de recolección por valor unitario</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#5a5a5a;">BOLSA GRIS</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>✅ SÍ va en la bolsa gris</h4>
+          <ul>
+            <li>Latas de aluminio (gaseosa, cerveza, conservas)</li>
+            <li>Latas de acero (atún, vegetales, aceites)</li>
+            <li>Utensilios de cocina metálicos dañados</li>
+            <li>Herramientas metálicas sin filo</li>
+            <li>Chatarra ferrosa y no ferrosa</li>
+            <li>Perfiles, varillas y cables de cobre</li>
+            <li>Tapas metálicas de frascos</li>
+            <li>Papel aluminio compactado (bola)</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>❌ NO va en la bolsa gris</h4>
+          <ul>
+            <li>Pilas y baterías (van en punto naranja RESPEL)</li>
+            <li>Chatarra con residuos peligrosos adheridos</li>
+            <li>Electrodomésticos completos (van en RAEE)</li>
+            <li>Metales con asbesto</li>
+            <li>Envases de pinturas o solventes</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>♻️ Destino en 4R+T</h4>
+          <ul>
+            <li>Chatarrerías certificadas por 4R+T</li>
+            <li>Fundición y aleación en plantas siderúrgicas</li>
+            <li>Fabricación de piezas mecánicas</li>
+            <li>Recuperación de cobre para industria eléctrica</li>
+            <li>Lingotes de aluminio reciclado</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#5a5a5a;">2.8%</div>
+          <div class="d-lbl">de la masa total<br>(PGIRS Fusagasugá)</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#5a5a5a;">$1.2M</div>
+          <div class="d-lbl">COP/ton aluminio<br>precio mercado</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#5a5a5a;">$3.5M</div>
+          <div class="d-lbl">COP/ton cobre<br>precio mercado</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#5a5a5a;">95%</div>
+          <div class="d-lbl">energía ahorrada<br>vs. producción nueva</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 08: PELIGROSOS ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">08 ·</div>
+    <div class="sec-titulo">
+      <h2>Residuos <span>Peligrosos (RESPEL)</span></h2>
+      <p class="sec-bajada">Recipiente Rojo · Decreto 4741/2005 · Gestores autorizados obligatorios</p>
+    </div>
+  </div>
+
+  <div class="callout alerta">
+    <p><strong>⚠️ ADVERTENCIA DE SEGURIDAD:</strong> Los residuos peligrosos NUNCA deben mezclarse con otros residuos. Su manejo incorrecto está sancionado por la Ley 1252 de 2008 y puede causar daño grave a la salud de los Guardianes del Primer Paso y al medio ambiente. Siempre entregarlos a gestores autorizados por la ANLA.</p>
+  </div>
+
+  <div class="categoria-card cat-peligroso">
+    <div class="cat-header">
+      <div class="cat-ico">🔴</div>
+      <div class="cat-info">
+        <h3>Residuos Peligrosos (RESPEL)</h3>
+        <div class="cat-sub">PELIGRO · CRETIP: Corrosivo · Reactivo · Explosivo · Tóxico · Inflamable · Patógeno</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#8b0000;">RECIPIENTE ROJO ROTULADO</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>🔴 Residuos domiciliarios peligrosos</h4>
+          <ul>
+            <li>Pilas y baterías (todo tipo)</li>
+            <li>Medicamentos vencidos y sobrantes</li>
+            <li>Envases de plaguicidas y pesticidas</li>
+            <li>Pinturas, barnices y solventes</li>
+            <li>Aceites de motor usados</li>
+            <li>Baterías de automóvil</li>
+            <li>Termómetros de mercurio</li>
+            <li>Fungicidas y herbicidas</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>🏥 Residuos hospitalarios (BIRH)</h4>
+          <ul>
+            <li>Materiales corto-punzantes (agujas, bisturís)</li>
+            <li>Residuos anatomopatológicos</li>
+            <li>Residuos farmacéuticos hospitalarios</li>
+            <li>Material de laboratorio contaminado</li>
+            <li>Ropa de protección usada en áreas de riesgo</li>
+            <li>Recipientes de reactivos químicos</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>🏭 Residuos industriales peligrosos</h4>
+          <ul>
+            <li>Solventes orgánicos (xilol, acetona, etc.)</li>
+            <li>Residuos de galvanización</li>
+            <li>Lodos industriales con metales pesados</li>
+            <li>PCBs y aceites con bifenilos policlorados</li>
+            <li>Residuos de procesos fotográficos</li>
+            <li>Catalizadores agotados</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#8b0000;">GESTORES</div>
+          <div class="d-lbl">autorizados ANLA<br>únicos receptores</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#8b0000;">Dto 4741</div>
+          <div class="d-lbl">de 2005 — norma<br>aplicable RESPEL</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#8b0000;">NUNCA</div>
+          <div class="d-lbl">mezclar con<br>otros residuos</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#8b0000;">RÓTULO</div>
+          <div class="d-lbl">obligatorio:<br>tipo + cantidad + fecha</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 09: ESPECIALES / RAEE ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">09 ·</div>
+    <div class="sec-titulo">
+      <h2>Residuos Especiales <span>y RAEE</span></h2>
+      <p class="sec-bajada">Punto Morado · Aparatos Eléctricos y Electrónicos · Programas posconsumo REP</p>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-especial">
+    <div class="cat-header">
+      <div class="cat-ico">🟣</div>
+      <div class="cat-info">
+        <h3>Residuos de Aparatos Eléctricos y Electrónicos</h3>
+        <div class="cat-sub">RAEE · Resolución 1511/2010 · Programas REP obligatorios para productores</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#5a1a8a;">PUNTO MORADO / POSCONSUMO</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>🟣 RAEE que van al punto morado</h4>
+          <ul>
+            <li>Teléfonos celulares y cargadores</li>
+            <li>Computadores, tablets y laptops</li>
+            <li>Televisores (LCD, plasma, CRT)</li>
+            <li>Impresoras, escáneres y copiadoras</li>
+            <li>Electrodomésticos pequeños (licuadoras, etc.)</li>
+            <li>Cables eléctricos y extensiones</li>
+            <li>Fluorescentes y bombillas de bajo consumo</li>
+            <li>Tóneres y cartuchos de tinta</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>🏗️ Residuos de construcción (RCD)</h4>
+          <ul>
+            <li>Escombros y concreto demolido</li>
+            <li>Cerámica y azulejos</li>
+            <li>Madera de obra</li>
+            <li>Metales estructurales</li>
+            <li>Vidrios de edificaciones</li>
+            <li>Destino: escombreras autorizadas</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>♻️ Cadena de gestión RAEE</h4>
+          <ul>
+            <li>Puntos de recolección autorizados (REP)</li>
+            <li>Desmantelamiento seguro de componentes</li>
+            <li>Recuperación de metales preciosos (Au, Ag, Pd)</li>
+            <li>Gestión segura de sustancias peligrosas</li>
+            <li>Datos certificados según Ley 1581/2012</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 10: NO APROVECHABLES ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">10 ·</div>
+    <div class="sec-titulo">
+      <h2>No Aprovechables — <span>Disposición Final</span></h2>
+      <p class="sec-bajada">Bolsa Negra · 17% de la masa total · Meta 4R+T: reducir al mínimo mediante educación</p>
+    </div>
+  </div>
+
+  <div class="categoria-card cat-noaprov">
+    <div class="cat-header">
+      <div class="cat-ico">⚫</div>
+      <div class="cat-info">
+        <h3>Residuos No Aprovechables</h3>
+        <div class="cat-sub">DISPOSICIÓN FINAL · Relleno sanitario Mondoñedo — destino de última instancia</div>
+      </div>
+      <div class="cat-bolsa">
+        <div class="bolsa-label">Contenedor</div>
+        <div class="bolsa-nombre" style="color:#4a3000;">BOLSA NEGRA</div>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-grid">
+        <div class="cat-col">
+          <h4>⚫ Sí va en la bolsa negra</h4>
+          <ul>
+            <li>Pañales desechables y toallas higiénicas</li>
+            <li>Papel higiénico y papel tissue usado</li>
+            <li>Colillas de cigarrillo</li>
+            <li>Icopor/tecnopor sin posibilidad de reciclaje local</li>
+            <li>Plásticos laminados multicomponente</li>
+            <li>Envases de tetrapack (mientras no haya gestor)</li>
+            <li>Residuos de barrido urbano mezclados</li>
+            <li>Materiales muy contaminados sin posibilidad de limpieza</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>🎯 Estrategia de minimización 4R+T</h4>
+          <ul>
+            <li>Educación Edgering: segregación correcta en origen</li>
+            <li>Puntos ecológicos en conjuntos residenciales</li>
+            <li>Compostaje domiciliario para orgánicos</li>
+            <li>Campañas de sustitución de plástico de un uso</li>
+            <li>Diseño para la reparabilidad (supra-reciclaje)</li>
+            <li>Compras verdes: productos con menor generación</li>
+          </ul>
+        </div>
+        <div class="cat-col">
+          <h4>📊 Dato PGIRS Fusagasugá</h4>
+          <ul>
+            <li>17% de la masa = ~581 ton/mes en Fusagasugá</li>
+            <li>Meta 4R+T: reducir al 10% para 2030</li>
+            <li>Cada ton reducida = $85K COP ahorro en tarifas</li>
+            <li>Impacto: extensión de vida útil de Mondoñedo</li>
+            <li>Contexto: Mondoñedo recibe 6.000 ton/día del área metropolitana</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cat-datos">
+        <div class="dato-item">
+          <div class="d-num" style="color:#4a3000;">17.0%</div>
+          <div class="d-lbl">de la masa total<br>(Tabla 18 PGIRS)</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#4a3000;">$85K</div>
+          <div class="d-lbl">COP/ton costo<br>de disposición</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#4a3000;">10%</div>
+          <div class="d-lbl">meta 4R+T<br>para 2030</div>
+        </div>
+        <div class="dato-item">
+          <div class="d-num" style="color:#4a3000;">−7%</div>
+          <div class="d-lbl">reducción objetivo<br>mediante educación</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 11: PROCESO ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">11 ·</div>
+    <div class="sec-titulo">
+      <h2>Proceso de Separación <span>en la Fuente</span></h2>
+      <p class="sec-bajada">Protocolo operativo para hogares, empresas y municipios según el PGIRS</p>
+    </div>
+  </div>
+
+  <div class="paso-lista">
+    <div class="paso">
+      <div class="paso-num">01</div>
+      <div class="paso-cuerpo">
+        <div class="etq">Paso 1 · Identificación</div>
+        <h4>Identifica el residuo antes de desecharlo</h4>
+        <p>Antes de botar cualquier material, pregúntate: ¿Es orgánico? ¿Es plástico? ¿Es papel? ¿Es vidrio? ¿Es metal? ¿Es peligroso? Si tiene dudas, consulta esta guía o pregunta al EcoBot 4R+T. La identificación correcta es el primer paso de la cadena de valor circular.</p>
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">02</div>
+      <div class="paso-cuerpo">
+        <div class="etq">Paso 2 · Limpieza</div>
+        <h4>Limpia y seca los materiales reciclables</h4>
+        <p>Los envases plásticos, de vidrio y metal deben enjuagarse con agua fría para eliminar restos de alimentos. No es necesario dejarlos perfectamente limpios, pero la contaminación cruzada reduce hasta un 70% el valor comercial del material. Las cajas de cartón deben estar secas y sin grasa.</p>
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">03</div>
+      <div class="paso-cuerpo">
+        <div class="etq">Paso 3 · Separación</div>
+        <h4>Separa por categoría en el contenedor correcto</h4>
+        <p>Coloca cada material en su bolsa o recipiente correspondiente: <strong>verde</strong> (orgánicos), <strong>amarilla</strong> (plásticos), <strong>azul</strong> (papel/cartón), <strong>transparente</strong> (vidrio), <strong>gris</strong> (metales), <strong>negra</strong> (no aprovechables). Los peligrosos y RAEE van a puntos especiales.</p>
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">04</div>
+      <div class="paso-cuerpo">
+        <div class="etq">Paso 4 · Compactación</div>
+        <h4>Reduce el volumen para optimizar el transporte</h4>
+        <p>Aplanar las cajas de cartón, compactar las botellas PET pisándolas, hacer una bola con el papel aluminio y empujar las latas. Reducir el volumen al máximo permite que los Guardianes del Primer Paso transporten más material en cada ruta, aumentando su ingreso y la eficiencia de la logística inversa.</p>
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">05</div>
+      <div class="paso-cuerpo">
+        <div class="etq">Paso 5 · Entrega</div>
+        <h4>Entrega al Guardián del Primer Paso o punto ecológico</h4>
+        <p>Deja los materiales separados en el día y horario de recolección de tu ruta georreferenciada 4R+T, o lleva el material seco al punto ecológico más cercano. Cada kilogramo entregado queda registrado en la plataforma de trazabilidad y contribuye al fondo de becas Edgering.</p>
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">06</div>
+      <div class="paso-cuerpo">
+        <div class="etq">Paso 6 · Trazabilidad</div>
+        <h4>Verifica el impacto de tu aporte en el dashboard</h4>
+        <p>A través de la plataforma 4R+T o el EcoBot, puedes consultar cuántos kilos has aportado, cuánto CO2 has ayudado a mitigar (usando el factor de 4.234 kg CO2eq/ton del PGIRS) y cuántas becas técnicas has contribuido a financiar. La transparencia radical de datos es uno de los valores fundamentales del ecosistema.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SEC 12: TABLA RESUMEN FINAL ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">12 ·</div>
+    <div class="sec-titulo">
+      <h2>Tabla Resumen <span>de Clasificación</span></h2>
+      <p class="sec-bajada">Guía rápida de referencia para hogares, guardianes y operadores 4R+T</p>
+    </div>
+  </div>
+
+  <table class="tabla-resumen">
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Contenedor</th>
+        <th>¿Aprovechable?</th>
+        <th>Preparación requerida</th>
+        <th>Destino 4R+T</th>
+        <th>Precio mercado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🍎 Restos de comida</td>
+        <td><span class="bolsa-badge" style="background:#e8f5e2;color:#2d6a1f;">VERDE</span></td>
+        <td>✅ Sí — alta prioridad</td>
+        <td>Ninguna especial</td>
+        <td>Compostaje · Bioinsumos</td>
+        <td>$25K–80K/ton</td>
+      </tr>
+      <tr>
+        <td>🌿 Poda de jardín</td>
+        <td><span class="bolsa-badge" style="background:#e8f5e2;color:#2d6a1f;">VERDE</span></td>
+        <td>✅ Sí</td>
+        <td>Sin pesticidas</td>
+        <td>Compostaje · Biogás</td>
+        <td>$25K/ton</td>
+      </tr>
+      <tr>
+        <td>🥤 Botella PET</td>
+        <td><span class="bolsa-badge" style="background:#fff8f0;color:#b85c00;">AMARILLA</span></td>
+        <td>✅ Sí — muy alto valor</td>
+        <td>Enjuagar · aplanar</td>
+        <td>Peletizado industrial</td>
+        <td>$800K/ton</td>
+      </tr>
+      <tr>
+        <td>🛒 Bolsa plástica</td>
+        <td><span class="bolsa-badge" style="background:#fff8f0;color:#b85c00;">AMARILLA</span></td>
+        <td>✅ Sí</td>
+        <td>Limpia y seca</td>
+        <td>Film plástico reciclado</td>
+        <td>$350K/ton</td>
+      </tr>
+      <tr>
+        <td>📦 Caja de cartón</td>
+        <td><span class="bolsa-badge" style="background:#f0f8ff;color:#1a5c8a;">AZUL</span></td>
+        <td>✅ Sí</td>
+        <td>Aplanar · mantener seco</td>
+        <td>Pulpa para papel</td>
+        <td>$180K/ton</td>
+      </tr>
+      <tr>
+        <td>📰 Papel periódico</td>
+        <td><span class="bolsa-badge" style="background:#f0f8ff;color:#1a5c8a;">AZUL</span></td>
+        <td>✅ Sí</td>
+        <td>Seco</td>
+        <td>Reciclaje de pulpa</td>
+        <td>$150K/ton</td>
+      </tr>
+      <tr>
+        <td>🍾 Botella de vidrio</td>
+        <td><span class="bolsa-badge" style="background:#f0fcff;color:#1a6e7a;">TRANSPARENTE</span></td>
+        <td>✅ Sí — 100%</td>
+        <td>No romper · enjuagar</td>
+        <td>Reciclaje vidrio</td>
+        <td>$50K/ton</td>
+      </tr>
+      <tr>
+        <td>🥫 Lata de aluminio</td>
+        <td><span class="bolsa-badge" style="background:#f8f8f8;color:#5a5a5a;">GRIS</span></td>
+        <td>✅ Sí — muy alto valor</td>
+        <td>Enjuagar</td>
+        <td>Fundición aluminio</td>
+        <td>$1.2M/ton</td>
+      </tr>
+      <tr>
+        <td>🔌 Cable de cobre</td>
+        <td><span class="bolsa-badge" style="background:#f8f8f8;color:#5a5a5a;">GRIS</span></td>
+        <td>✅ Sí — máximo valor</td>
+        <td>Separar de plástico</td>
+        <td>Industria eléctrica</td>
+        <td>$3.5M/ton</td>
+      </tr>
+      <tr>
+        <td>🔋 Pila o batería</td>
+        <td><span class="bolsa-badge" style="background:#fff0f0;color:#8b0000;">ROJO</span></td>
+        <td>⚠️ Peligroso</td>
+        <td>Gestor autorizado</td>
+        <td>RESPEL certificado</td>
+        <td>Costo de gestión</td>
+      </tr>
+      <tr>
+        <td>💊 Medicamento vencido</td>
+        <td><span class="bolsa-badge" style="background:#fff0f0;color:#8b0000;">ROJO</span></td>
+        <td>⚠️ Peligroso</td>
+        <td>Farmacia posconsumo</td>
+        <td>RESPEL certificado</td>
+        <td>Costo de gestión</td>
+      </tr>
+      <tr>
+        <td>📱 Celular viejo</td>
+        <td><span class="bolsa-badge" style="background:#f8f0ff;color:#5a1a8a;">MORADO</span></td>
+        <td>✅ RAEE especializado</td>
+        <td>Borrar datos</td>
+        <td>Posconsumo REP</td>
+        <td>Variable</td>
+      </tr>
+      <tr>
+        <td>👶 Pañal desechable</td>
+        <td><span class="bolsa-badge" style="background:#faf5e4;color:#4a3000;">NEGRO</span></td>
+        <td>❌ No aprovechable</td>
+        <td>Cerrar bien</td>
+        <td>Relleno Mondoñedo</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>🍕 Caja de pizza con grasa</td>
+        <td><span class="bolsa-badge" style="background:#faf5e4;color:#4a3000;">NEGRO</span></td>
+        <td>❌ No aprovechable</td>
+        <td>—</td>
+        <td>Relleno Mondoñedo</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>🧻 Papel higiénico usado</td>
+        <td><span class="bolsa-badge" style="background:#faf5e4;color:#4a3000;">NEGRO</span></td>
+        <td>❌ No aprovechable</td>
+        <td>—</td>
+        <td>Relleno Mondoñedo</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ======= SEC 13: FAQ ECOBOT ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">13 ·</div>
+    <div class="sec-titulo">
+      <h2>FAQ — Repositorio de Conocimiento <span>EcoBot 4R+T</span></h2>
+      <p class="sec-bajada">50 preguntas frecuentes · Base de conocimiento oficial del asistente circular</p>
+    </div>
+  </div>
+
+  <p class="p">El siguiente repositorio constituye la <strong>base de conocimiento oficial del EcoBot 4R+T</strong>, diseñado para ser cargado en el archivo <code>knowledge_base.json</code> del agente conversacional. Las respuestas están construidas sobre los datos reales del PGIRS de Fusagasugá 2022, el Plan de Desarrollo Municipal 2024-2028 y la filosofía operativa del ecosistema 4R+T de Remasté (INGEOAM SOLUCIONES SAS).</p>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+    <div class="card borde-dorado">
+      <h4>📌 Sección I — Identidad y Gobernanza (1-10)</h4>
+      <p>Preguntas sobre qué es 4R+T, sus valores, visión 2030, MEGA, los Guardianes del Primer Paso y el marco legal.</p>
+    </div>
+    <div class="card borde-verde">
+      <h4>🤖 Sección II — IA y Machine Learning (11-20)</h4>
+      <p>Preguntas sobre la arquitectura de datos, modelos ML, BigQuery, Pipeline de clasificación y herramientas de IA generativa.</p>
+    </div>
+    <div class="card borde-dorado">
+      <h4>🏭 Sección III — Servicios y ESG (21-30)</h4>
+      <p>Preguntas sobre TaaS, ACV, dashboard ESG, logística inversa, PGIRS municipal y beneficios tributarios.</p>
+    </div>
+    <div class="card borde-verde">
+      <h4>🎓 Sección IV — Impacto Social y Educación (31-40)</h4>
+      <p>Preguntas sobre Edgering, becas técnicas, financiación del programa, formación en IA y el perfil ML Engineer Junior.</p>
+    </div>
+  </div>
+
+  <!-- FAQ COMPLETAS -->
+  <div class="faq-item"><div class="faq-q">¿Qué es el proyecto 4R+T?</div><div class="faq-a">Es un ecosistema de inteligencia circular que sincroniza el cumplimiento industrial con la inclusión social, transformando residuos sólidos en recursos para educación técnica. Opera en la región del Sumapaz, Colombia, bajo la marca Remasté de INGEOAM SOLUCIONES SAS.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Qué significan las siglas 4R+T?</div><div class="faq-a">Representan Reducir, Reciclar, Reutilizar y Reusar — las cuatro acciones fundamentales de la economía circular — más la T de Transformación y Trazabilidad tecnológica. Cada residuo gestionado correctamente activa la cadena completa.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cuál es la MEGA para 2028?</div><div class="faq-a">Transformar 10.000 toneladas de residuos en un fondo social para garantizar 5.000 becas de educación técnica profesional para los Guardianes del Primer Paso. El residuo financia directamente la educación de quien lo recolecta.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Quiénes son los Guardianes del Primer Paso?</div><div class="faq-a">Es el nombre dignificante para los recicladores de oficio, pilares operativos y de sabiduría tradicional del proyecto. Son actores formalizados con contrato laboral, seguridad social, ruta georreferenciada y acceso al programa de becas Edgering.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cuántas toneladas genera Fusagasugá según el PGIRS?</div><div class="faq-a">Según la Tabla 18 del PGIRS (Acuerdo 022/2022), el promedio histórico 2019-2020 de Emserfusa es de 2.412 ton/mes. La proyección para 2030 (Tabla 130) es de 2.870 ton/mes. La tasa de aprovechamiento actual es del 8.38%.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cuánto CO2 se mitiga al desviar residuos orgánicos del relleno?</div><div class="faq-a">El PGIRS de Fusagasugá 2022 establece un factor de mitigación de 4.234 kg CO2eq por año por tonelada de residuos orgánicos desviados del relleno sanitario (modelo Nakhon Si Thammarat). En 24 meses el proyecto ha calculado 8.468 kg CO2eq mitigados, equivalentes a 1.500 árboles plantados.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Qué es la Base de Datos de Impacto?</div><div class="faq-a">Un modelo conceptual implementado en BigQuery para capturar, historizar y explotar métricas de residuos y beneficios sociales. Se alimenta de datos del PGIRS, reportes del SUI y registros directos de Emserfusa, garantizando la trazabilidad del 100% de la cadena.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Qué es el Model Drift en el contexto de 4R+T?</div><div class="faq-a">Es cuando la precisión del modelo de clasificación de zonas de riesgo baja porque la composición o distribución de residuos cambia estacionalmente o por eventos especiales. El sistema lo detecta cuando el MAPE supera el 15% o el Recall baja del 85%, y activa un re-entrenamiento automático con los nuevos datos del mes.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Qué es la Trazabilidad como Servicio (TaaS)?</div><div class="faq-a">Solución que permite a empresas demostrar legalmente la disposición final correcta de sus residuos de forma ágil, mediante un Dashboard ESG en tiempo real con certificados de impacto ambiental verificables. Incluye indicadores de ahorro de agua, energía y reducción de huella de CO2 por kg reciclado.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Qué es el Supra-reciclaje en 4R+T?</div><div class="faq-a">La creación de objetos de mayor valor económico y estético a partir de materiales recuperados, bajo la estética Electric Gold (Dorado sobre Negro). Transforma el residuo en un artículo de lujo técnico, posicionando al reciclaje como industria de alta energía y no como actividad de subsistencia.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cómo se financian las becas del programa Edgering?</div><div class="faq-a">Mediante el margen de transformación del material recuperado: el residuo paga la educación. Cada tonelada de PET aprovechada genera aproximadamente $800K COP, parte de los cuales se destinan al fondo de becas. La cadena completa es: separación correcta → recolección → valorización → beca técnica.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cómo combate 4R+T el Greenwashing?</div><div class="faq-a">Mediante la transparencia radical de datos verificables publicados en el dashboard público, el uso de factores de mitigación de CO2 científicamente validados (PGIRS 2022), certificados de impacto ambiental trazables y la auditoría externa de los procesos. No se hacen afirmaciones ambientales sin respaldo de datos reales.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Qué es el perfil ML Engineer IA Junior en 4R+T?</div><div class="faq-a">Es el perfil técnico que los beneficiarios del programa Edgering alcanzan para gestionar los modelos de datos del reciclaje. Incluye alfabetización digital, análisis de datos con Python/Pandas, fundamentos de Machine Learning (Scikit-Learn), IA generativa y publicación de portafolio en GitHub.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cómo protege 4R+T la información personal?</div><div class="faq-a">Bajo la Ley 1581 de 2012 (Habeas Data) con consentimiento explícito en todos los formularios, y los estándares ISO 27001 de seguridad y cifrado de datos. Los datos de trazabilidad individual son privados; solo los datos agregados de impacto son públicos. Los logs de auditoría ambiental son inmutables.</div></div>
+
+  <div class="faq-item"><div class="faq-q">¿Cómo ser parte de 4R+T hoy?</div><div class="faq-a">Separando correctamente en la fuente usando esta guía de clasificación, registrándose en la plataforma web 4R+T para acceder a la ruta de recolección de tu barrio, y permitiendo que la IA optimice la entrega de residuos. Cada kilogramo cuenta hacia las 10.000 toneladas de la MEGA 2028.</div></div>
+</div>
+
+<!-- ======= SEC 14: NORMATIVA ======= -->
+<div class="seccion">
+  <div class="sec-header">
+    <div class="sec-num">14 ·</div>
+    <div class="sec-titulo">
+      <h2>Marco Normativo <span>y Legal</span></h2>
+      <p class="sec-bajada">Legislación colombiana aplicable al manejo integral de residuos sólidos</p>
+    </div>
+  </div>
+
+  <div class="norma-item">
+    <div class="norma-cod">PGIRS 2022</div>
+    <div class="norma-desc"><strong>Acuerdo Municipal 022 de 2022 — PGIRS Fusagasugá:</strong> Plan de Gestión Integral de Residuos Sólidos de Fusagasugá. Documento base científico del modelo 4R+T. Establece metas de aprovechamiento al 90% para 2030 y registra datos históricos de Emserfusa.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">Dto 2981/13</div>
+    <div class="norma-desc"><strong>Decreto 2981 de 2013:</strong> Reglamenta la prestación del servicio público de aseo. Define los lineamientos para la separación en la fuente, rutas selectivas, frecuencias de recolección y responsabilidades de generadores.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">Res 472/17</div>
+    <div class="norma-desc"><strong>Resolución 472 de 2017:</strong> Reglamenta la gestión integral de residuos sólidos en actividades de construcción y demolición (RCD) y grandes generadores de residuos no peligrosos.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">Dto 4741/05</div>
+    <div class="norma-desc"><strong>Decreto 4741 de 2005:</strong> Reglamenta el manejo de residuos peligrosos (RESPEL). Obliga a la identificación, clasificación CRETIP, registro de generadores y entrega exclusiva a gestores autorizados por la ANLA.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">Res 1511/10</div>
+    <div class="norma-desc"><strong>Resolución 1511 de 2010:</strong> Establece el sistema de Responsabilidad Extendida del Productor (REP) para Residuos de Aparatos Eléctricos y Electrónicos (RAEE). Obliga a fabricantes e importadores a implementar sistemas de retoma.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">Ley 1581/12</div>
+    <div class="norma-desc"><strong>Ley 1581 de 2012 (Habeas Data):</strong> Protección de datos personales. Aplicable al manejo de datos de generadores, Guardianes y beneficiarios del programa Edgering. Requiere consentimiento explícito para recolección y tratamiento de datos.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">CONPES 3874</div>
+    <div class="norma-desc"><strong>Política Nacional de Economía Circular (CONPES 3874):</strong> Marco estratégico nacional que establece las metas de Colombia en economía circular. 4R+T es el modelo operativo que implementa tecnológicamente esta política en la región del Sumapaz.</div>
+  </div>
+  <div class="norma-item">
+    <div class="norma-cod">GHG Protocol</div>
+    <div class="norma-desc"><strong>GHG Protocol + ISO 14064:</strong> Estándares internacionales para la cuantificación y reporte de emisiones de gases de efecto invernadero. El factor de mitigación de 4.234 kg CO2eq/ton del PGIRS sigue estas metodologías.</div>
+  </div>
+
+  <div class="sep"><div class="l"></div><div class="r">◆</div><div class="l"></div></div>
+
+  <div class="callout">
+    <p><strong>Declaración de Responsabilidad:</strong> Este Manual ha sido elaborado con base en la evidencia científica del PGIRS de Fusagasugá (Acuerdo 022/2022) y el repositorio maestro de conocimiento del EcoBot 4R+T, bajo la responsabilidad técnica de <strong>INGEOAM SOLUCIONES SAS</strong> y el Ecosistema Digital 4R+T. Los precios de mercado son referenciales y pueden variar según las condiciones del mercado de materiales secundarios. Para datos actualizados, consultar el Dashboard de Trazabilidad 4R+T.</p>
+  </div>
+</div>
+
+<!-- ======= FOOTER ======= -->
+<div class="footer">
+  <div class="footer-brand">Remasté · 4R+T</div>
+  <div class="footer-info">
+    Manual de Clasificación de Residuos · Edición 1.0 · Abril 2026<br>
+    INGEOAM SOLUCIONES SAS · NIT en trámite · Fusagasugá, Cundinamarca<br>
+    Fuente: PGIRS Fusagasugá · Acuerdo 022/2022 · EcoBot 4R+T Knowledge Base<br>
+    Alineado: Política Nacional Economía Circular · CONPES 3874 · Ley 1581/2012
+  </div>
+</div>
+
+</body>
+</html>

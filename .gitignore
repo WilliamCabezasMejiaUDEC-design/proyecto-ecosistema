@@ -1,0 +1,11 @@
+# Archivos de entorno y claves
+.env
+__pycache__/
+
+# Archivos pesados y carpetas de desarrollo local
+data/
+notebooks/
+pyproject.toml
+run_4RT.bat
+*.pkl
+*.pyc

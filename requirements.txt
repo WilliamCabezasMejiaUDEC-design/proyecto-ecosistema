@@ -1,0 +1,21 @@
+# CORE UI & FRAMEWORK
+streamlit==1.36.0
+
+# DATA SCIENCE & MACHINE LEARNING
+pandas==2.2.0
+numpy==1.26.0
+scikit-learn==1.4.0
+joblib
+
+# VISUALIZACIÓN
+plotly==5.18.0
+matplotlib==3.8.0
+seaborn==0.13.0
+
+# IA & GENAI
+google-genai==0.1.0
+gtts
+
+# UTILS
+python-dotenv==1.0.1
+watchdog==4.0.0

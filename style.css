@@ -1,0 +1,172 @@
+"""
+APP.PY — DASHBOARD PRINCIPAL ECOSISTEMA 4R+T
+Comando de Operaciones Inteligentes
+Concepto Visual: Electric Gold (Negro + Dorado)
+Ejecutar: streamlit run app.py
+"""
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
+import plotly.express as px
+import joblib
+from pathlib import Path
+import warnings
+warnings.filterwarnings('ignore')
+
+# ── Configuración de página ─────────────────────────────────────
+st.set_page_config(
+    page_title="4R+T | Ecosistema Circular",
+    page_icon="♻️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ── CSS Electric Gold ────────────────────────────────────────────
+st.markdown("""
+<style>
+    .stApp { background-color: #080808; }
+    .main .block-container { padding: 2rem 3rem; }
+    h1, h2, h3 { color: #FFD700 !important; font-family: 'Georgia', serif; }
+    .metric-label { color: #b8b8b8 !important; }
+    .metric-value { color: #FFD700 !important; font-size: 2rem !important; }
+    .stSidebar { background-color: #121212 !important; }
+    .stSidebar [data-testid="stSidebarNav"] { background-color: #121212; }
+    div.stSelectbox label { color: #FFD700; }
+    div.stSlider label { color: #FFD700; }
+    .stButton > button {
+        background-color: #FFD700; color: #000000;
+        font-weight: 700; border: none; border-radius: 2px;
+    }
+    .stButton > button:hover { background-color: #FFF0A0; }
+</style>
+""", unsafe_allow_html=True)
+
+# ── Sidebar ─────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown("## ⚡ 4R+T")
+    st.markdown("*Ecosistema de Inteligencia Circular*")
+    st.divider()
+    
+    modulo = st.selectbox("📊 Módulo", [
+        "🏠 Inicio — Impacto General",
+        "📈 Predicción de Toneladas",
+        "🗺️ Clasificación de Zonas",
+        "🔵 Segmentación K-Means",
+        "💰 Módulo Financiero",
+        "🤖 EcoBot — Asistente Circular",
+    ])
+    
+    st.divider()
+    st.markdown("**Región:** Sumapaz · 10 municipios")
+    st.markdown("**Fuente:** PGIRS Fusagasugá 2022")
+    st.markdown("**Meta:** 2030 — 10.000 ton")
+
+# ── Carga de datos ───────────────────────────────────────────────
+@st.cache_data
+def cargar_datos():
+    try:
+        df = pd.read_csv("data/processed/datos_limpios.csv", parse_dates=['fecha'])
+    except FileNotFoundError:
+        # Datos de demostración si no existe el CSV
+        fechas = pd.date_range('2019-01', periods=30, freq='ME')
+        df = pd.DataFrame({
+            'fecha': fechas,
+            'ton_historico': np.random.normal(2800, 200, 30),
+            'ton_aprovechada': np.random.normal(234, 50, 30),
+            'co2_mitigado_kg': np.random.normal(600, 100, 30),
+        })
+    return df
+
+df = cargar_datos()
+
+# ── MÓDULO: INICIO ───────────────────────────────────────────────
+if "Inicio" in modulo:
+    st.markdown("# ♻️ 4R+T — Ecosistema Digital Circular")
+    st.markdown("*Comando de Operaciones Inteligentes · Región del Sumapaz*")
+    st.divider()
+    
+    # KPIs principales
+    col1, col2, col3, col4 = st.columns(4)
+    
+    ton_total = df['ton_historico'].sum()
+    ton_aprov = df['ton_aprovechada'].sum()
+    co2_total = df['co2_mitigado_kg'].sum()
+    tasa_actual = (ton_aprov / ton_total * 100) if ton_total > 0 else 0
+    
+    col1.metric("🏭 Total Recolectado", f"{ton_total:,.0f} ton", "Línea base PGIRS")
+    col2.metric("♻️ Aprovechado 4R+T", f"{ton_aprov:,.0f} ton", f"+{tasa_actual:.1f}%")
+    col3.metric("🌱 CO2 Mitigado", f"{co2_total:,.0f} kg", "≈ 1.500 árboles")
+    col4.metric("🎯 Meta 2030", "10.000 ton", f"{ton_aprov/10000*100:.1f}% alcanzado")
+    
+    st.divider()
+    
+    # Gráfico de serie temporal
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=df['fecha'], y=df['ton_historico'],
+        name="Total Recolectado", line=dict(color='#FFD700', width=2)
+    ))
+    fig.add_trace(go.Scatter(
+        x=df['fecha'], y=df['ton_aprovechada'],
+        name="Aprovechado 4R+T", 
+        line=dict(color='#7ec86e', width=2),
+        fill='tozeroy', fillcolor='rgba(126,200,110,0.15)'
+    ))
+    fig.update_layout(
+        title="Serie Histórica — Recolección y Aprovechamiento",
+        plot_bgcolor='#121212', paper_bgcolor='#080808',
+        font=dict(color='#b8b8b8'),
+        title_font=dict(color='#FFD700'),
+        legend=dict(bgcolor='#1a1a1a'),
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+# ── MÓDULO: PREDICCIÓN ──────────────────────────────────────────
+elif "Predicción" in modulo:
+    st.markdown("# 📈 Simulador de Impacto 2030")
+    st.divider()
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.markdown("### ⚙️ Parámetros")
+        ton_input = st.slider("Toneladas recolectadas/mes", 1000, 5000, 3340)
+        inversion = st.slider("Inversión en educación ($M COP)", 0, 500, 100)
+        eficiencia = st.slider("Eficiencia de ruta (%)", 50, 100, 75) / 100
+        
+        # Cálculos en tiempo real
+        co2_mes = ton_input * 0.623 * 4.234 * eficiencia
+        arboles = co2_mes / 5.6
+        ahorro_relleno = ton_input * eficiencia * 0.85  # m³
+        becas_pot = int(ton_input * eficiencia * 0.002)
+        
+        st.divider()
+        st.markdown("### 📊 Resultados")
+        st.metric("🌱 CO2 Mitigado/Mes", f"{co2_mes:,.0f} kg")
+        st.metric("🌳 Equivalencia Árboles", f"{arboles:,.0f} árboles")
+        st.metric("💾 Ahorro en Relleno", f"{ahorro_relleno:,.1f} m³")
+        st.metric("🎓 Becas Potenciales", f"{becas_pot}")
+    
+    with col2:
+        # Proyección a 6 meses
+        meses = [f"Mes {i+1}" for i in range(6)]
+        proyeccion = [ton_input * (1 + eficiencia * 0.05)**i for i in range(6)]
+        
+        fig2 = go.Figure(go.Bar(
+            x=meses, y=proyeccion,
+            marker_color='#FFD700', opacity=0.85
+        ))
+        fig2.update_layout(
+            title="Proyección — Próximos 6 Meses",
+            plot_bgcolor='#121212', paper_bgcolor='#080808',
+            font=dict(color='#b8b8b8'), title_font=dict(color='#FFD700')
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+
+st.divider()
+st.markdown(
+    "*4R+T · Remasté · Ecosistema Digital Circular · Región del Sumapaz · 2026*",
+    unsafe_allow_html=False
+)
