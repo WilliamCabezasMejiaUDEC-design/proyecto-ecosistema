@@ -1,5 +1,9 @@
 import sys
 import os
+
+# Fuerza a Python a reconocer la carpeta raíz como parte del entorno
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+
 import streamlit as st
 
 # --- 1. BLINDAJE DE RUTA (CRÍTICO) ---
