@@ -2,6 +2,7 @@ import streamlit as st
 import os
 from google import genai
 
+
 # --- CONFIGURACIÓN DE CONOCIMIENTO (IDENTIDAD 4R+T) ---
 CONTEXTO_MAESTRO = """Eres el consultor experto de 4R+T. 
 Tu base de conocimiento incluye las FAQs del proyecto.
@@ -10,11 +11,13 @@ y servicios técnicos (Logística Inversa, Consultoría PGIRS, Trazabilidad).
 Si no conoces la respuesta sobre el proyecto, sé honesto y solicita contactar a soporte."""
 
 def get_gemini_api_key():
-    # Prioridad 1: Streamlit Cloud (Seguro)
+    # Línea de depuración: Imprime en consola qué llaves ve Streamlit
+    print(f"Llaves disponibles en st.secrets: {st.secrets.keys()}")
+    
     if "GEMINI_API_KEY" in st.secrets:
         return st.secrets["GEMINI_API_KEY"]
-    # Prioridad 2: Entorno Local (Desarrollo)
     return os.environ.get("GEMINI_API_KEY")
+
 
 def render_ecobot():
     st.markdown("## 🤖 Ecobot 4R+T — Inteligencia Operativa")
