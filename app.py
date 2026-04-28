@@ -44,6 +44,7 @@ if menu == "Identidad":
 elif menu == "Portafolio":
     render_portfolio()
 elif menu == "Financiero":
-    render_financiero(van=2800000, tir=31, roi=145, cb=3.4)
+        render_financiero(van=2800000, tir=31, roi=145, cb=3.4, insight_texto="Viabilidad técnica y circular confirmada.")
+
 elif menu == "Ecobot":
     render_ecobot()
